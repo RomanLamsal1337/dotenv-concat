@@ -624,7 +624,6 @@ async function main() {
         Object.entries(curr).map(([key, value]) => acc[key.toLowerCase()] = value);
         return acc;
     }, {});
-    core_1.info("Env vars: " + JSON.stringify(mergedConfigs));
     Object.entries(mergedConfigs).forEach(([key, value]) => {
         core_1.setOutput(key, value);
     });

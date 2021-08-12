@@ -1,5 +1,5 @@
 import dotenv from "dotenv"
-import {getBooleanInput, getInput, info, setFailed, setOutput} from "@actions/core"
+import {getInput, setFailed, setOutput} from "@actions/core"
 import {readFileSync} from "fs"
 
 async function main() {
@@ -12,8 +12,6 @@ async function main() {
         Object.entries(curr).map(([key, value]) => acc[key.toLowerCase()] = value)
         return acc
     }, {})
-
-    info("Env vars: " + JSON.stringify(mergedConfigs))
 
     Object.entries(mergedConfigs).forEach(([key, value]) => {
         setOutput(key, value)
