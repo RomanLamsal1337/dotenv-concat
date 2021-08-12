@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - id: solo
-        uses: ./
+        uses: romanlamsal/dotenv-concat@main
         with:
           paths: ./test/.env.solo
       - run: echo ${{ steps.solo.outputs.foo }}
@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - id: multi
-        uses: ./
+        uses: romanlamsal/dotenv-concat@main
         with:
           paths: test/.env.multi1,test/.env.multi2
       - run: |
