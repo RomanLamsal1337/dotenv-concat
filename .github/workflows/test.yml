@@ -1,0 +1,28 @@
+name: Test
+
+on:
+  push:
+
+jobs:
+  test-solo-lowercase:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - id: solo
+        uses: ./
+        with:
+          paths: ./test/.env.solo
+      - run: echo ${{ steps.solo.outputs.foo }}
+      - run: echo ${{ steps.solo.outputs.FOO }}
+      - if: ${{ steps.solo.outputs.foo }} != 'bar'
+        run: exit 1
+  test-multi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - id: solo
+        uses: ./
+        with:
+          paths: test/.env.multi1,test/.env.multi2
+      - if: ${{ steps.solo.outputs.foo }} != 'foobar' && ${{ steps.solo.outputs.bar }} != 'bar'  && ${{ steps.solo.outputs.baz }} != 'baz'
+        run: exit 1

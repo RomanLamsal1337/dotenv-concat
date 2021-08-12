@@ -1,0 +1,9 @@
+name: dotenv-concat
+description: "Create deployment and update status accordingly"
+inputs:
+  paths:
+    required: true
+    description: "Comma separated list of .env files to concat. Will be merged in order."
+runs:
+  using: node12
+  main: "build/main.js"
