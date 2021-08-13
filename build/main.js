@@ -602,7 +602,7 @@ module.exports.parse = parse
 
 /***/ }),
 
-/***/ 519:
+/***/ 441:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -611,24 +611,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const dotenv_1 = __importDefault(__webpack_require__(738));
-const core_1 = __webpack_require__(225);
+exports.mergeConfigs = void 0;
 const fs_1 = __webpack_require__(747);
-async function main() {
-    const files = core_1.getInput("paths").split(",");
+const dotenv_1 = __importDefault(__webpack_require__(738));
+const mergeConfigs = async (files) => {
     const configs = await Promise.all(files.map(async (file) => {
-        const fileContent = fs_1.readFileSync(file);
+        const fileContent = fs_1.readFileSync(file.trim());
         return dotenv_1.default.parse(fileContent);
     }));
-    const mergedConfigs = configs.reduce((acc, curr) => {
+    return configs.reduce((acc, curr) => {
         Object.entries(curr).map(([key, value]) => acc[key.toLowerCase()] = value);
         return acc;
     }, {});
-    Object.entries(mergedConfigs).forEach(([key, value]) => {
-        core_1.setOutput(key, value);
-    });
-}
-main().catch(e => core_1.setFailed(e));
+};
+exports.mergeConfigs = mergeConfigs;
 
 
 /***/ }),
@@ -684,11 +680,26 @@ module.exports = require("path");
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__(519);
-/******/ 	
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+var exports = __webpack_exports__;
+var __webpack_unused_export__;
+
+__webpack_unused_export__ = ({ value: true });
+const core_1 = __webpack_require__(225);
+const mergeConfigs_1 = __webpack_require__(441);
+async function main() {
+    const files = core_1.getInput("paths").split(",");
+    const mergedConfigs = mergeConfigs_1.mergeConfigs(files);
+    Object.entries(mergedConfigs).forEach(([key, value]) => {
+        core_1.setOutput(key, value);
+    });
+}
+main().catch(e => core_1.setFailed(e));
+
+})();
+
 /******/ })()
 ;

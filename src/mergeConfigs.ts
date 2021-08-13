@@ -3,7 +3,7 @@ import dotenv from "dotenv"
 
 export const mergeConfigs = async (files: string[]) => {
     const configs = await Promise.all(files.map(async file => {
-        const fileContent = readFileSync(file)
+        const fileContent = readFileSync(file.trim())
         return dotenv.parse(fileContent)
     }))
     return configs.reduce((acc, curr) => {

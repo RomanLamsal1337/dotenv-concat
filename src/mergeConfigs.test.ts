@@ -31,4 +31,15 @@ describe("mergeConfig", () => {
         // then
         expect(merged).toEqual({[key.toLowerCase()]: secondValue})
     })
+    it('should trim filename before trying to read file', async () => {
+        // given
+        const file = " .env.foo "
+        readFileSyncMock.mockReturnValueOnce("")
+
+        // when
+        await mergeConfigs([file])
+
+        // then
+        expect(readFileSyncMock).toBeCalledWith(file.trim())
+    })
 })
