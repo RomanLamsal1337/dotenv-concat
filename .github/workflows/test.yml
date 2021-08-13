@@ -21,7 +21,9 @@ jobs:
       - id: multi
         uses: romanlamsal/dotenv-concat@main
         with:
-          paths: test/.env.multi1,test/.env.multi2
+          paths: >-
+            test/.env.multi1,
+            test/.env.multi2
       - run: |
           echo ${{ steps.multi.outputs.foo }}
           echo ${{ steps.multi.outputs.bar }}

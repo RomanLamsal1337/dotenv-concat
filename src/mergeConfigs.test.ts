@@ -42,4 +42,15 @@ describe("mergeConfig", () => {
         // then
         expect(readFileSyncMock).toBeCalledWith(file.trim())
     })
+    it('should read configs with a comment', async () => {
+        // given
+        const content = "FOO=bar"
+        readFileSyncMock.mockReturnValueOnce(`# blabla\n${content}`)
+
+        // when
+        const merged = await mergeConfigs([''])
+
+        // then
+        expect(merged).toEqual({ foo: "bar" })
+    })
 })
