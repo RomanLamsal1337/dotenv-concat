@@ -11,6 +11,8 @@
   "scripts": {
     "build": "webpack --progress",
     "build:watch": "webpack --watch",
+    "predeploy": "yarn build",
+    "deploy": "git tag -f v1.0 && git push origin v1.0",
     "test": "jest --watch"
   },
   "devDependencies": {

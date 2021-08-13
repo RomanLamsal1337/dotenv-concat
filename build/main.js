@@ -693,9 +693,12 @@ const mergeConfigs_1 = __webpack_require__(441);
 async function main() {
     const files = core_1.getInput("paths").split(",");
     const mergedConfigs = mergeConfigs_1.mergeConfigs(files);
+    core_1.startGroup("Outputs");
     Object.entries(mergedConfigs).forEach(([key, value]) => {
+        core_1.info(`${key}: ${value}`);
         core_1.setOutput(key, value);
     });
+    core_1.endGroup();
 }
 main().catch(e => core_1.setFailed(e));
 
