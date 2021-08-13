@@ -4,7 +4,7 @@ import {mergeConfigs} from "./mergeConfigs"
 async function main() {
     const files = getInput("paths").split(",")
 
-    const mergedConfigs = mergeConfigs(files)
+    const mergedConfigs: { [key: string]: string } = await mergeConfigs(files)
 
     startGroup("Outputs")
 
