@@ -1,5 +1,5 @@
 name: dotenv-concat
-description: "Create deployment and update status accordingly"
+description: "Concat multiple dotenv files via comma-separated list"
 inputs:
   paths:
     required: true
